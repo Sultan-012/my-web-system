@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أوكسينا OXINA | الزيت الأفغاني الأصلي</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS File Link -->
+    <link rel="stylesheet" href="OXINA_STORE.css">
+</head>
+<body>
+
+    <!-- القائمة الجانبية السريعة -->
+    <div class="side-nav">
+        <a href="#hero">
+            <i class="fa-solid fa-house"></i>
+            <span class="tooltip">الرئيسية</span>
+        </a>
+        <a href="#offers">
+            <i class="fa-solid fa-tags"></i>
+            <span class="tooltip">عروض أوكسينا</span>
+        </a>
+        <a href="#results">
+            <i class="fa-solid fa-users"></i>
+            <span class="tooltip">تجارب العملاء</span>
+        </a>
+        <a href="#cart">
+            <i class="fa-solid fa-receipt"></i>
+            <span class="tooltip">الفاتورة وإتمام الطلب</span>
+        </a>
+    </div>
+
+    <!-- الشريط العلوي -->
+    <div class="top-bar">
+        ✨ متجر أوكسينا OXINA الرسمي - خصومات هائلة وشحن مجاني لجميع مناطق المملكة ✨
+    </div>
+
+    <!-- Navigation Header -->
+    <nav>
+        <div class="logo">OXINA <span>أوكسينا</span></div>
+        <a href="#cart" class="cart-icon-btn">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>السلة</span>
+            <div class="cart-badge" id="cartBadge">0</div>
+        </a>
+    </nav>
+
+    <!-- Banner -->
+    <section id="hero" style="text-align: center;">
+        <!--صورة الواجهه-->
+        <div class="hero-image-wrapper">
+                <img src="Images/Background.jpeg" alt="متجر أوكسينا OXINA للزيوت الطبيعية" class="hero-image">
+            </div>
+        <h1 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 15px;">متجر أوكسينا OXINA للزيوت الطبيعية</h1>
+        <p style="color: var(--text-muted); font-size: 1.15rem;">الحل الأفغاني المثالي والمثبت علمياً لإنبات شعر الرأس واللحية وزيادة الكثافة</p>
+        <a href="#offers" class="hero-btn">تسوق الآن</a>
+    </section>
+
+    <!-- قسم العروض المتعددة مع سلايدر للتنقل -->
+    <section id="offers">
+        <div class="section-header">
+            <h2>عروض وباقات أوكسينا OXINA الخاصة</h2>
+            <p>تصفح جميع العروض المتاحة (يمكنك التنقل يميناً ويساراً إضافة أكثر من عرض لسلتك)</p>
+        </div>
+
+        <div class="slider-wrapper">
+            <button class="slider-btn prev" onclick="scrollSlider('offersContainer', 320)"><i class="fa-solid fa-chevron-right"></i></button>
+
+            <div class="slider-container" id="offersContainer">
+                <!-- عرض 1 -->
+                <div class="offer-card">
+                    <img src="Images/Image1.jpeg" class="offer-img" alt="عرض 1">
+                    <h3 class="offer-title">كورس الشهر – زيت الأفغاني المثالي (125 مل) + مشط مجاناً</h3>
+                    <p class="offer-desc">""عبوة زيت الأفغاني المثالي بحجم 125 مل لتغذية الجذور وتكثيف الشعر، تأتي مع مشط خاص لتوزيع الزيت بفاعلية على فروة الرأس.""</p>
+                    <div class="offer-price">149 ريال <span>200 ريال</span></div>
+                    <button class="btn-add-cart" onclick="addToCart('كورس الشهر – زيت الأفغاني المثالي (125 مل) + مشط مجاناً', 149)">إضافة للسلة <i class="fa-solid fa-plus"></i></button>
+                </div>
+
+                <!-- عرض 2 -->
+                <div class="offer-card">
+                    <img src="Images/Image1r1.jpeg" class="offer-img" alt="عرض 2">
+                    <h3 class="offer-title">كورس الشهر – الزيت الأفغاني الأمثل (125 مل) + مشط مجاناً</h3>
+                    <p class="offer-desc">"كورس العناية لشهر كامل من الزيت الأفغاني الأمثل لحل جميع مشاكل الشعر، عبوة 125 مل + مشط توزيع الزيت مجاناً."</p>
+                    <div class="offer-price">149 ريال <span>200 ريال</span></div>
+                    <button class="btn-add-cart" onclick="addToCart('كورس الشهر – الزيت الأفغاني الأمثل (125 مل) + مشط مجاناً', 149)">إضافة للسلة <i class="fa-solid fa-plus"></i></button>
+                </div>
+
+                <!-- عرض 3 -->
+                <div class="offer-card">
+                    <img src="Images/Image2.jpeg" class="offer-img" alt="عرض 3">
+                    <h3 class="offer-title">كورس الشهرين – الزيت الطبيعي المثالي (عبوتين) + مشط خشبي وممشط زيت مجاناً</h3>
+                    <p class="offer-desc">"عرض التوفير المضاعف: عبوتين من الزيت الطبيعي المثالي (125 مل × 2) لحل كافة مشاكل الشعر + مشط خشبي فاخر ومشط توزيع الزيت الذكي مجاناً."</p>
+                    <div class="offer-price">196 ريال <span>300 ريال</span></div>
+                    <button class="btn-add-cart" onclick="addToCart('كورس الشهرين – الزيت الطبيعي المثالي (عبوتين) + مشط خشبي وممشط زيت مجاناً', 196)">إضافة للسلة <i class="fa-solid fa-plus"></i></button>
+                </div>
+
+                <!-- عرض 4 -->
+                <div class="offer-card">
+                    <img src="Images/Image3.jpeg" class="offer-img" alt="عرض 4">
+                    <h3 class="offer-title">كورس 3 أشهر: 3 عبوات الزيت الأفغاني المثالي + مشط التوزيع المجاني</h3>
+                    <p class="offer-desc">"عرض التوفير الثلاثي: ثلاث عبوات من الزيت الأفغاني المثالي (125 مل × 3) لحل كافة مشاكل الشعر + مشط توزيع الزيت الذكي مجاناً."</p>                    
+                    <div class="offer-price">249 ريال <span>450 ريال</span></div>
+                    <button class="btn-add-cart" onclick="addToCart('كورس 3 أشهر: 3 عبوات الزيت الأفغاني المثالي + مشط التوزيع المجاني', 249)">إضافة للسلة <i class="fa-solid fa-plus"></i></button>
+                </div>
+
+                <!-- عرض 5 -->
+                <div class="offer-card">
+                    <img src="Images/Image3r2.jpeg" class="offer-img" alt="عرض 5">
+                    <h3 class="offer-title">3 عبوات من الزيت الأفغاني الأمثل + مشط توزيع الزيت مجاناً.</h3>
+                    <p class="offer-desc">الزيت الأفغاني الأمثل هو كورس عناية طبيعي متكامل مخصص لعلاج مشاكل الشعر، يعمل على تغذية فروة الرأس والبصيلات من العمق لإعادة الحيوية والكثافة لشعرك.</p>
+                    <div class="offer-price">249 ريال <span>500 ريال</span></div>
+                    <button class="btn-add-cart" onclick="addToCart('3 عبوات من الزيت الأفغاني الأمثل + مشط توزيع الزيت مجاناً.', 249)">إضافة للسلة <i class="fa-solid fa-plus"></i></button>
+                </div>
+
+                <!-- عرض 6 -->
+                <div class="offer-card">
+                    <img src="Images/Image4r4.jpeg" class="offer-img" alt="عرض 6">
+                    <h3 class="offer-title">5 عبوات من الزيت الأفغاني الأمثل + مشط توزيع الزيت الذكي + مشط خشبي فاخر مجاناً.</h3>
+                    <p class="offer-desc">باقة الجملة والاستخدام الطويل للأسر مع خصم 45%.</p>
+                    <div class="offer-price">429 ريال <span>800 ريال</span></div>
+                    <button class="btn-add-cart" onclick="addToCart('5 عبوات من الزيت الأفغاني الأمثل + مشط توزيع الزيت الذكي + مشط خشبي فاخر مجاناً.', 429)">إضافة للسلة <i class="fa-solid fa-plus"></i></button>
+                </div>
+            </div>
+
+            <button class="slider-btn next" onclick="scrollSlider('offersContainer', -320)"><i class="fa-solid fa-chevron-left"></i></button>
+        </div>
+        <!-- زر اكمال الطلب والدفع المضاف -->
+    <div class="checkout-btn-wrapper">
+        <button class="btn-checkout-direct" onclick="proceedToCheckout()">
+            إكمال الطلب والدفع <i class="fa-solid fa-arrow-left-long"></i>
+        </button>
+    </div>
+    </section>
+
+    <!-- قسم صور نتائج المستخدمين مع سلايدر للتنقل -->
+    <section id="results">
+        <div class="section-header">
+            <h2>تجارب ونتائج الزيت الافغاني من متجر أوكسينا</h2>
+            <p>تصفح نتائج قبل وبعد الاستخدام الواقعية (انتقل لرؤية المزيد)</p>
+        </div>
+
+        <div class="slider-wrapper">
+            <button class="slider-btn prev" onclick="scrollSlider('resultsContainer', 320)"><i class="fa-solid fa-chevron-right"></i></button>
+
+            <div class="slider-container" id="resultsContainer">
+                <div class="result-card">
+                    <img src="Images/test.jpeg" alt="قبل وبعد 1">
+                    <div class="result-body">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p style="font-weight:700;">نتيجة أمير (الرياض)</p>
+                        <p style="font-size:0.85rem; color:var(--text-muted);">"تعبئة كاملة لفروة الرأس في 4 أسابيع فقط!"</p>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <img src="Images/test1.jpeg" alt="قبل وبعد 2">
+                    <div class="result-body">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p style="font-weight:700;">نتيجة ام فهد (جدة)</p>
+                        <p style="font-size:0.85rem; color:var(--text-muted);">"فرق كبير بكثافة فروة الراس ."</p>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <img src="Images/test2.jpeg" alt="قبل وبعد 3">
+                    <div class="result-body">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p style="font-weight:700;">نتيجة مريم (الدمام)</p>
+                        <p style="font-size:0.85rem; color:var(--text-muted);">"توقف التساقط نهائياً من ثاني أسبوع."</p>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <img src="Images/test3.jpeg" alt="قبل وبعد 4">
+                    <div class="result-body">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p style="font-weight:700;">نتيجة  ام خالد (مكة)</p>
+                        <p style="font-size:0.85rem; color:var(--text-muted);">"منتج أسطوري بكل معنى الكلمة."</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="slider-btn next" onclick="scrollSlider('resultsContainer', -320)"><i class="fa-solid fa-chevron-left"></i></button>
+        </div>
+    </section>
+
+    <!-- قسم سلة المشتريات وإرسال الفاتورة للمبيعات -->
+    <section id="cart">
+        <div class="section-header">
+            <h2>سلة العروض وفاتورة الطلب</h2>
+            <p>راجِع منتجاتك وأدخل بياناتك لتصل الفاتورة مباشرة لقسم المبيعات للاتصال بك</p>
+        </div>
+
+        <div class="checkout-grid">
+            <!-- قائمة المشتريات بالسلة -->
+            <div class="cart-summary">
+                <h3 style="margin-bottom: 15px; color: var(--primary);"><i class="fa-solid fa-list-check"></i> العروض المختارة:</h3>
+                <div id="cartItemsList">
+                    <p style="text-align: center; color: var(--text-muted); margin: 20px 0;">السلة فارغة حالياً. أضف بعض العروض من الأعلى!</p>
+                </div>
+                <hr style="margin: 15px 0; border: none; border-top: 1px solid #cbd5e1;">
+                <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 1.2rem; color: var(--primary);">
+                    <span>المجموع الكلي:</span>
+                    <span id="cartTotalPrice">0 ريال</span>
+                </div>
+            </div>
+
+            <!-- نموذج بيانات التسليم -->
+            <div>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="userName"><i class="fa-solid fa-user"></i> اسم الزبون الكامل:</label>
+                        <input type="text" id="userName" required placeholder="مثال: محمد السالم">
+                    </div>
+                    <div class="form-group">
+                        <label for="userPhone"><i class="fa-solid fa-phone"></i> رقم الجوال للتواصل:</label>
+                        <input type="tel" id="userPhone" required placeholder="05XXXXXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label for="userCity"><i class="fa-solid fa-location-dot"></i> المدينة والحي (العنوان):</label>
+                        <input type="text" id="userCity" required placeholder="مثال: الرياض - حي النرجس">
+                    </div>
+
+                    <button type="submit" class="btn-submit-order">
+                        <i class="fa-brands fa-whatsapp"></i> إرسال الفاتورة المكتملة للمبيعات
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 متجر أوكسينا OXINA - جميع الحقوق محفوظة</p>
+    </footer>
+
+    <!-- JavaScript Link -->
+    <script src="OXINA_STORE.js"></script>
+</body>
+</html>
