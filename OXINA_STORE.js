@@ -26,19 +26,19 @@ function proceedToCheckout() {
         // 🟢 تيك توك بكسل: حدث "البدء بالدفع"
         // ==========================================
         if (typeof ttq !== 'undefined') {
-            // حساب الإجمالي كـ "رقم صافي" وبدون كسور طويلة
             let checkoutTotal = Number(cart.reduce((sum, item) => sum + (item.price * item.qty), 0).toFixed(2));
             
             let contentsArray = cart.map(item => ({
+                "content_id": item.title, // 👈 تم إضافة المعرف هنا
                 "content_type": "product",
                 "content_name": item.title,
                 "quantity": item.qty,
-                "price": item.price // السعر هنا تم تنظيفه مسبقاً
+                "price": item.price 
             }));
 
             ttq.track('InitiateCheckout', {
                 "contents": contentsArray,
-                "value": checkoutTotal, // رقم صافي 100%
+                "value": checkoutTotal, 
                 "currency": "SAR"
             });
         }
@@ -72,14 +72,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Add Offer/Product to Cart
 function addToCart(title, price) {
-    // 🔥 هنا التعديل الأهم: تنظيف السعر من أي أحرف أو نصوص (مثل "ريال") وتحويله لرقم
     const cleanPrice = parseFloat(String(price).replace(/[^0-9.]/g, '')) || 0;
 
     const existingItem = cart.find(item => item.title === title);
     if (existingItem) {
         existingItem.qty += 1;
     } else {
-        // حفظ السعر النظيف في السلة
         cart.push({ title: title, price: cleanPrice, qty: 1 });
     }
     updateCartUI();
@@ -91,12 +89,13 @@ function addToCart(title, price) {
         ttq.track('AddToCart', {
             "contents": [
                 {
+                    "content_id": title, // 👈 تم إضافة المعرف هنا
                     "content_type": "product",
                     "content_name": title,
                     "price": cleanPrice 
                 }
             ],
-            "value": cleanPrice, // رقم صافي 100%
+            "value": cleanPrice,
             "currency": "SAR"
         });
     }
@@ -169,8 +168,6 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
     const salesWhatsAppNumber = "966561245965"; 
 
     let invoiceItemsText = "";
-    
-    // حساب الإجمالي كـ "رقم صافي" لتيك توك
     let grandTotal = Number(cart.reduce((sum, item) => sum + (item.price * item.qty), 0).toFixed(2));
     
     let ttqContents = []; 
@@ -180,6 +177,7 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
         invoiceItemsText += `%0A  ${i + 1}. *${item.title}* (الكمية: ${item.qty}) - السعر: ${subTotal} ريال`;
         
         ttqContents.push({
+            "content_id": item.title, // 👈 تم إضافة المعرف هنا
             "content_type": "product",
             "content_name": item.title,
             "quantity": item.qty,
@@ -204,13 +202,13 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
 
             ttq.track('PlaceAnOrder', {
                 "contents": ttqContents,
-                "value": grandTotal, // رقم صافي 100%
+                "value": grandTotal, 
                 "currency": "SAR"
             });
             
             ttq.track('Purchase', {
                 "contents": ttqContents,
-                "value": grandTotal, // رقم صافي 100%
+                "value": grandTotal, 
                 "currency": "SAR"
             });
         } catch (error) {
