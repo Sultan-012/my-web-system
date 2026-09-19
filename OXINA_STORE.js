@@ -2,7 +2,6 @@
 let cart = [];
 
 function proceedToCheckout() {
-    // 1. التحقق من عدد العناصر في السلة
     let cartCount = 0;
     
     if (typeof cart !== 'undefined' && Array.isArray(cart)) {
@@ -14,7 +13,6 @@ function proceedToCheckout() {
         }
     }
 
-    // 2. حالة وجود منتجات بالسلة
     if (cartCount > 0) {
         const checkoutSection = document.getElementById('checkout') || document.querySelector('.checkout-grid');
         
@@ -25,75 +23,69 @@ function proceedToCheckout() {
         }
 
         // ==========================================
-        // 🟢 إرسال حدث "البدء بالدفع" لتيك توك بكسل
+        // 🟢 تيك توك بكسل: حدث "البدء بالدفع"
         // ==========================================
         if (typeof ttq !== 'undefined') {
-            // حساب إجمالي السلة لتمريره للحدث
-            let checkoutTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            // حساب الإجمالي كـ "رقم صافي" وبدون كسور طويلة
+            let checkoutTotal = Number(cart.reduce((sum, item) => sum + (item.price * item.qty), 0).toFixed(2));
             
-            // تجهيز محتويات السلة
             let contentsArray = cart.map(item => ({
                 "content_type": "product",
                 "content_name": item.title,
                 "quantity": item.qty,
-                "price": item.price
+                "price": item.price // السعر هنا تم تنظيفه مسبقاً
             }));
 
             ttq.track('InitiateCheckout', {
                 "contents": contentsArray,
-                "value": checkoutTotal,
-                "currency": "SAR" // العملة: ريال سعودي
+                "value": checkoutTotal, // رقم صافي 100%
+                "currency": "SAR"
             });
         }
         // ==========================================
 
-    } 
-    // 3. حالة السلة فارغة
-    else {
+    } else {
         alert('السلة فارغة حالياً! يرجى اختيار أحد العروض وإضافته للسلة أولاً.');
     }
 }
 
-// Function to control horizontally scrolling sliders
 function scrollSlider(containerId, distance) {
     const container = document.getElementById(containerId);
     container.scrollBy({ left: distance, behavior: 'smooth' });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // تحديد عنصر الـ Banner
     const heroSection = document.getElementById('hero');
-    
     if (heroSection) {
         setTimeout(function() {
             heroSection.classList.add('appear');
         }, 100);
     }
 
-    // ==========================================
-    // 🟢 إرسال حدث "مشاهدة المحتوى" لتيك توك بكسل
-    // ==========================================
     if (typeof ttq !== 'undefined') {
         ttq.track('ViewContent', {
             "value": 0,
             "currency": "SAR"
         });
     }
-    // ==========================================
 });
 
 // Add Offer/Product to Cart
 function addToCart(title, price) {
+    // 🔥 هنا التعديل الأهم: تنظيف السعر من أي أحرف أو نصوص (مثل "ريال") وتحويله لرقم
+    const cleanPrice = parseFloat(String(price).replace(/[^0-9.]/g, '')) || 0;
+
     const existingItem = cart.find(item => item.title === title);
     if (existingItem) {
         existingItem.qty += 1;
     } else {
-        cart.push({ title: title, price: price, qty: 1 });
+        // حفظ السعر النظيف في السلة
+        cart.push({ title: title, price: cleanPrice, qty: 1 });
     }
     updateCartUI();
 
     // ==========================================
-    // 🟢 إرسال حدث "الإضافة للسلة" لتيك توك بكسل
+    // 🟢 تيك توك بكسل: حدث "الإضافة للسلة"
     // ==========================================
     if (typeof ttq !== 'undefined') {
         ttq.track('AddToCart', {
@@ -101,14 +93,13 @@ function addToCart(title, price) {
                 {
                     "content_type": "product",
                     "content_name": title,
-                    "price": price
+                    "price": cleanPrice 
                 }
             ],
-            "value": price,
+            "value": cleanPrice, // رقم صافي 100%
             "currency": "SAR"
         });
     }
-    // ==========================================
 }
 
 // Change item quantity
@@ -178,14 +169,14 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
     const salesWhatsAppNumber = "966561245965"; 
 
     let invoiceItemsText = "";
-    let grandTotal = 0;
     
-    // تجهيز مصفوفة العناصر لتيك توك
+    // حساب الإجمالي كـ "رقم صافي" لتيك توك
+    let grandTotal = Number(cart.reduce((sum, item) => sum + (item.price * item.qty), 0).toFixed(2));
+    
     let ttqContents = []; 
 
     cart.forEach((item, i) => {
         const subTotal = item.price * item.qty;
-        grandTotal += subTotal;
         invoiceItemsText += `%0A  ${i + 1}. *${item.title}* (الكمية: ${item.qty}) - السعر: ${subTotal} ريال`;
         
         ttqContents.push({
@@ -197,40 +188,35 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
     });
 
     // ==========================================
-    // 🟢 تيك توك بكسل: تعريف المستخدم وإرسال حدث الشراء
+    // 🟢 تيك توك بكسل: أحداث الشراء
     // ==========================================
     if (typeof ttq !== 'undefined') {
         try {
-            // تشفير رقم الجوال (SHA-256) كما يطلب تيك توك لزيادة دقة التتبع
             const encoder = new TextEncoder();
             const data = encoder.encode(phone);
             const hashBuffer = await crypto.subtle.digest('SHA-256', data);
             const hashArray = Array.from(new Uint8Array(hashBuffer));
             const hashedPhone = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
-            // إرسال بيانات المستخدم المشفّرة
             ttq.identify({
                 "phone_number": hashedPhone
             });
 
-            // إرسال حدث إتمام الطلب الشراء
             ttq.track('PlaceAnOrder', {
                 "contents": ttqContents,
-                "value": grandTotal,
+                "value": grandTotal, // رقم صافي 100%
                 "currency": "SAR"
             });
             
-            // إرسال حدث الشراء كنسخة إضافية للتأكيد (اختياري)
             ttq.track('Purchase', {
                 "contents": ttqContents,
-                "value": grandTotal,
+                "value": grandTotal, // رقم صافي 100%
                 "currency": "SAR"
             });
         } catch (error) {
             console.error("TikTok Pixel Error:", error);
         }
     }
-    // ==========================================
 
     const invoiceMsg = 
         `🧾 *فاتورة طلب جديدة - متجر أوكسينا OXYNA*%0A` +
@@ -246,6 +232,5 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
         `💰 *الإجمالي النهائي:* ${grandTotal} ريال سعودي (شحن مجاني)%0A%0A` +
         `📞 *يرجى التواصل مع الزبون للتأكيد والشحن.*`;
 
-    // توجيه المستخدم للواتساب
     window.open(`https://wa.me/${salesWhatsAppNumber}?text=${invoiceMsg}`, '_blank');
 });
